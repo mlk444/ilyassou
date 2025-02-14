@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enveloppe Saint-Valentin</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #ffafbd, #ffc3a0);
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .container {
+            position: relative;
+            width: 220px;
+            height: 160px;
+        }
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border-radius: 5px;
+            clip-path: polygon(0% 30%, 50% 0%, 100% 30%, 100% 100%, 0% 100%);
+            transition: transform 0.5s ease-in-out;
+            border: 2px solid #d3d3d3;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .flap {
+            position: absolute;
+            width: 100%;
+            height: 60px;
+            background-color: white;
+            clip-path: polygon(0 100%, 50% 0, 100% 100%);
+            top: 0;
+            transition: transform 0.5s ease-in-out;
+            transform-origin: top;
+            border-top: 2px solid #d3d3d3;
+        }
+        .message {
+            position: absolute;
+            width: 90%;
+            height: 100px;
+            background-color: #ffebf0;
+            top: 30px;
+            left: 5%;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff4d6d;
+            font-family: Arial, sans-serif;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.5s ease-in-out;
+            border: 2px solid #ff4d6d;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .container.open .flap {
+            transform: rotateX(180deg);
+        }
+        .container.open .message {
+            transform: scaleY(1);
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            color: white;
+        }
+        .open-btn {
+            background-color: #ff4d6d;
+        }
+        .close-btn {
+            background-color: #ff4d6d;
+        }
+        .open-btn:hover, .close-btn:hover {
+            transform: scale(1.05);
+        }
+        .valentine-section {
+            display: none;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .yes-btn {
+            background-color: green;
+        }
+        .no-btn {
+            background-color: red;
+            position: absolute;
+        }
+        .yes-btn, .no-btn {
+            color: white;
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .yes-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="flap"></div>
+        <div class="envelope"></div>
+        <div class="message">Je t'aime Ilyass ❤️</div>
+    </div>
+    <div class="buttons">
+        <button class="button open-btn" onclick="openEnvelope()">Open</button>
+        <button class="button close-btn" onclick="closeEnvelope()">Close</button>
+    </div>
+    
+    <div class="valentine-section" id="valentineSection">
+        <img src="https://www.pngegg.com/fr/png-xhqkh" width="150" alt="Monstre Pixel Bleu Tenant des Fleurs">
+        <h2>You will be my Valentine? 💕</h2>
+        <button class="yes-btn" onclick="showHearts()">Yes</button>
+        <button class="no-btn" id="noButton" onmouseover="moveNoButton()">No</button>
+    </div>
+    
+    <script>
+        function openEnvelope() {
+            document.querySelector('.container').classList.add('open');
+            setTimeout(() => {
+                document.getElementById('valentineSection').style.display = 'block';
+            }, 1000);
+        }
+        function closeEnvelope() {
+            document.querySelector('.container').classList.remove('open');
+            document.getElementById('valentineSection').style.display = 'none';
+        }
+        function moveNoButton() {
+            const noButton = document.getElementById('noButton');
+            const x = Math.random() * (window.innerWidth - noButton.clientWidth);
+            const y = Math.random() * (window.innerHeight - noButton.clientHeight);
+            noButton.style.transform = `translate(${x}px, ${y}px)`;
+        }
+        function showHearts() {
+            for (let i = 0; i < 30; i++) {
+                let heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.style.position = 'absolute';
+                heart.style.fontSize = '30px';
+                heart.style.top = Math.random() * window.innerHeight + 'px';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                document.body.appendChild(heart);
+            }
+        }
+    </script>
+</body>
+</html>
